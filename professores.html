@@ -57,7 +57,7 @@
               <a href="" class="nav-link">Cursos</a>
             </li>
             <li class="nav-item">
-              <div class="dropdown">
+              <div class="dropdown dropstart">
                 <a href="" class="btn btn-outline-primary ms-4 " data-bs-toggle="dropdown">Entrar</a>
 
                 <!-- Dropdown Login -->
@@ -312,8 +312,11 @@
     // Setup - add a text input to each footer cell
     $('#dtbProfessores thead tr').clone(true).appendTo('#dtbProfessores thead');
     $('#dtbProfessores thead tr:eq(1) th').each(function (i) {
-      var title = $(this).text();
-      $(this).html('<input type="text" class="form-control" placeholder="Pesquisar ' + title + '" />');
+      if (title != 'Lattes') {
+        var title = $(this).text();
+        $(this).html('<input type="text" class="form-control" placeholder="Pesquisar ' + title + '" />');
+      }
+
 
       $('input', this).on('keyup change', function () {
         if (table.column(i).search() !== this.value) {
@@ -338,8 +341,18 @@
       orderCellsTop: true,
       fixedHeader: true,
       "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+        "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+      },
+      "columnDefs": [
+        {
+          "targets": [0],
+          "visible": false
+        },
+        {
+          "targets": [4],
+          "searchable": false
         }
+      ]
     });
   });
 </script>
