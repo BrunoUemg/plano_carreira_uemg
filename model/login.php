@@ -13,6 +13,7 @@ if (isset($_POST['login'])) {
         $_SESSION['email'] = $row['professorEmail'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row['professorNome'];
+        header('location: ../professores.php');
         echo "success";
     } elseif ($row2 = mysqli_fetch_array($select_data2, MYSQLI_ASSOC)) {
         $_SESSION['email'] = $row2['alunoEmail'];

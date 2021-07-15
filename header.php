@@ -83,11 +83,11 @@ if (isset($_SESSION['login'])) {
                   <form class="px-4 py-3" method="post" action="./model/login.php" onsubmit="return login();">
                     <div class="mb-3">
                       <label for="Email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="loginEmail" name="loginEmail" placeholder="email@exemplo.com">
+                      <input type="email" class="form-control" id="loginEmail" required name="loginEmail" placeholder="email@exemplo.com">
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Senha</label>
-                      <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="Senha">
+                      <input type="password" class="form-control" id="loginPassword" required name="loginPassword" placeholder="Senha">
                     </div>
                     <div class="mb-3">
                       <div class="form-check">
@@ -120,45 +120,45 @@ if (isset($_SESSION['login'])) {
                         <form id="profCadastro" method="POST" enctype="multipart/form-data" onload="return consultaUnidade()">
                           <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="profNome" name="profNome">
+                            <input type="text" required  class="form-control" id="profNome" name="profNome">
                           </div>
 
                           <div class="mb-3">
                             <label for="tel" class="form-label">Telefone</label>
-                            <input type="tel" class="form-control" id="profTel" name="profTel">
+                            <input type="tel"  required class="form-control" id="profTel" name="profTel">
                           </div>
 
                           <div class="mb-3">
                             <label for="dtaNascimento" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="profDtaNascimento" name="profDtaNascimento">
+                            <input type="date" required class="form-control" id="profDtaNascimento" name="profDtaNascimento">
                           </div>
 
                           <div class="mb-3">
                             <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="profCpf" name="profCpf">
+                            <input type="text" required  class="form-control" id="profCpf" name="profCpf">
                           </div>
 
                           <div class="mb-3">
                             <label for="emailcad" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="profEmail" name="profEmail">
+                            <input type="email" required class="form-control" id="profEmail" name="profEmail">
                           </div>
 
 
                           <div class="mb-3">
                             <label for="senha" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="profSenha" name="profSenha">
+                            <input type="password" required class="form-control" id="profSenha" name="profSenha">
                           </div>
 
                           <div class="mb-3">
                             <label for="unidade" class="form-label">Unidade</label>
-                            <select class="form-control" name="profUnidade" id="profUnidade">
+                            <select class="form-control" required  name="profUnidade" id="profUnidade">
                               <option value="">Selecione uma Unidade</option>
                             </select>
                           </div>
 
                           <div class="mb-3">
                             <label for="materia" class="form-label">Materia</label>
-                            <input type="text" class="form-control" id="profMateria" name="profMateria">
+                            <input type="text" required class="form-control" id="profMateria" name="profMateria">
                           </div>
 
                           <div class="mb-3">
@@ -169,7 +169,7 @@ if (isset($_SESSION['login'])) {
 
                           <div class="mb-3">
                             <label for="lattes" class="form-label">Descrição</label>
-                            <textarea class="form-control" name="profInfo" id="profInfo" rows="3"></textarea>
+                            <textarea class="form-control" required name="profInfo" id="profInfo" rows="3"></textarea>
                           </div>
 
 
@@ -201,45 +201,45 @@ if (isset($_SESSION['login'])) {
                         <form method="POST" enctype="multipart/form-data" id="alunoCadastro">
                           <div class="mb-3">
                             <label for="nomeAluno" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nomeAluno" name="nomeAluno">
+                            <input type="text" required class="form-control" id="nomeAluno" name="nomeAluno">
                           </div>
 
                           <div class="mb-3">
                             <label for="telAluno" class="form-label">Telefone</label>
-                            <input type="tel" class="form-control" id="telAluno" name="telAluno">
+                            <input type="tel" required class="form-control" id="telAluno" name="telAluno">
                           </div>
 
                           <div class="mb-3">
                             <label for="dtaNascimentoAluno" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="dtaNascimentoAluno" name="dtaNascimentoAluno">
+                            <input type="date" required class="form-control" id="dtaNascimentoAluno" name="dtaNascimentoAluno">
                           </div>
 
                           <div class="mb-3">
                             <label for="cpfAluno" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpfAluno" name="cpfAluno">
+                            <input type="text" required class="form-control" id="cpfAluno" name="cpfAluno">
                           </div>
 
                           <div class="mb-3">
                             <label for="emailcadAluno" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="emailcadAluno" name="emailcadAluno">
+                            <input type="text" required class="form-control" id="emailcadAluno" name="emailcadAluno">
                           </div>
 
 
                           <div class="mb-3">
                             <label for="senhaAluno" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="senhaAluno" name="senhaAluno">
+                            <input type="password" required class="form-control" id="senhaAluno" name="senhaAluno">
                           </div>
 
                           <div class="mb-3">
                             <label for="unidadeAluno" class="form-label">Unidade</label>
-                            <select class="form-control" id="unidadeAluno" name="unidadeAluno">
+                            <select class="form-control" required id="unidadeAluno" name="unidadeAluno">
                               <option>Selecione uma Unidade</option>
                             </select>
                           </div>
 
                           <div class="mb-3">
                             <label for="cursoAluno" class="form-label">Curso</label>
-                            <select class="form-control" id="cursoAluno" name="cursoAluno">
+                            <select class="form-control" required id="cursoAluno" name="cursoAluno">
                               <option>Selecione um curso</option>
                             </select>
                           </div>
