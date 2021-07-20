@@ -5,7 +5,7 @@ include_once "header.php";
 
 <div class="col-md-12 align-content-center mt-5">
 
-  <table id="dtbProfessores" class="display table table-striped dt-responsive nowrap" style="width:100%">
+  <table id="dtbUsers" class="display table table-striped dt-responsive nowrap" style="width:100%">
     <thead>
       <tr>
         <th class="none">ID</th>
@@ -29,6 +29,7 @@ include_once "header.php";
       </tr>
     </tfoot>
   </table>
+
   <?php
   include_once "footer.php";
   ?>

@@ -13,6 +13,10 @@ if (!empty($opcao)) {
                 echo cadAluno();
                 break;
             }
+        case 'apoio': {
+                echo cadApoio();
+                break;
+            }
     }
 }
 
@@ -71,5 +75,26 @@ function cadAluno()
     }
     $pdo = null;
     header('Content-Type: application/json');
+    echo json_encode($retorna);
+}
+
+function cadApoio()
+{
+    $pdo = Conectar();
+    //$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    $teste = 'Teste Curso';
+
+    $query_curso = "INSERT INTO `curso` (`idCurso`, `cursoNome`) VALUES (NULL, :cursoNome)";
+
+    $insert_curso = $pdo->prepare($query_curso);
+    $insert_curso->bindParam(':cursoNome', $teste);
+
+    if ($insert_curso->execute()) {
+        $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Cadastro realizado com sucesso!</div>'];
+        $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Cadastro realizado com sucesso!</div>';
+    } else {
+        $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Não foi possivel realizar seu cadastro!</div>'];
+    }
+    $pdo = null;
     echo json_encode($retorna);
 }

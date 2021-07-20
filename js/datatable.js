@@ -1,61 +1,87 @@
-function getParam() {
-  return window.location.href.slice(window.location.href.indexOf('?') + 1).split('=')[1];
-}
-
 $(document).ready(function () {
-  // Setup - add a text input to each footer cell
-  $('#dtbProfessores thead tr').clone(true).appendTo('#dtbProfessores thead');
-  $('#dtbProfessores thead tr:eq(1) th').each(function (i) {
-    var title = $(this).text();
-    if (title != 'Lattes') {
-      $(this).html('<input type="text" class="form-control" id=' + title + ' placeholder="Pesquisar ' + title + '" />');
-    } else {
-      $(this).html('<input type="text" disabled class="form-control" placeholder="Pesquisar ' + title + '" />');
-    }
-
-
-    $('input', this).on('keyup change', function () {
-      if (table.column(i).search() !== this.value) {
-        table
-          .column(i)
-          .search(this.value)
-          .draw();
-      }
-    });
-  });
-
   var table = $('#dtbProfessores').DataTable({
-    ajax: './model/lista_professores.php',
+    responsive: true,
+    ajax: './model/lista_professores.php?opcao=',
     columns: [
-      { "data": "id" },
+      { "data": "idProfessor" },
       { "data": "professorNome" },
       { "data": "professorMateria" },
       { "data": "unidadeNome" },
       { "data": "professorLattes" },
-      { "data": "professorInfo" }
+      { "data": "professorInfo" },
+      { "data": "idProfessor" }
     ],
-    orderCellsTop: true,
-    fixedHeader: true,
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
     },
+    responsive: {
+      details: {
+        display: $.fn.dataTable.Responsive.display.modal({
+          header: function (row) {
+            var data = row.data();
+            return 'Detalhes de ' + data.professorNome;
+          }
+        }),
+        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+          tableClass: 'table'
+        })
+      }
+    },
     "columnDefs": [
       {
-        "targets": [0],
-        "visible": false
+        targets: [4],
+        searchable: false,
+        render: function (data, type, row, meta) {
+          return '<a href="' + data + '" target="_blank" class="btn btn-sm btn-outline-primary">Currículo Lattes</a>';
+        }
       },
       {
-        "targets": [4],
-        "searchable": false,
-        "render": function (data, type, row, meta) {
-          return '<a href="' + data + '" target="_blank">Currículo Lattes</a>';
+        targets: [6],
+        searchable: false,
+        render: function (data, type, row, meta) {
+          return '<a value="' + data + '" class="btn btn-sm btn-outline-warning btn-apoio">Solicitar Professor</a>';
         }
       }
-    ],
-    "initComplete": function (settings, json) {
-      if (getParam()) {
-        document.getElementById('Unidade').value = getParam();
-        // document.getElementById('Unidade').enterKeyHint();
+    ]
+  });
+});
+
+
+
+
+$(document).on('click', '.btn-apoio', function () {
+  var idProf = $(this).attr("value");
+  $.confirm({
+    title: 'Atenção!',
+    content: 'Você tem certeza que deseja realizar o pedido de plano de carreira para o professor selecionado?',
+    buttons: {
+      confirm: {
+        text: 'Sim',
+        btnClass: 'btn-blue',
+        keys: ['enter', 'shift'],
+        action: function () {
+          console.log(idProf);
+          $.ajax({
+            url: "../model/cadastro.php?opcao=apoio",
+            dataType: "json",
+            type: "POST",
+            data: $(this).attr("value"),
+            contentType: false,
+            processData: false,
+            success: function (retorna) {
+              if (retorna['sit']) {
+                $("#msg-cad").html(retorna['msg']);
+              } else {
+                $("#msg-cad").html(retorna['msg']);
+              }
+            }
+          });
+        }
+      },
+      cancel: {
+        text: 'Não',
+        btnClass: 'btn-red',
+        keys: ['enter', 'shift']
       }
     }
   });

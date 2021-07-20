@@ -13,12 +13,15 @@ if (isset($_POST['login'])) {
         $_SESSION['email'] = $row['professorEmail'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row['professorNome'];
-        header('location: ../professores.php');
+        $_SESSION['professor'] = true;
+        $_SESSION['professorCoord'] = $row['professorCoord'];
         echo "success";
+        // header('location: ../professores.php');
     } elseif ($row2 = mysqli_fetch_array($select_data2, MYSQLI_ASSOC)) {
         $_SESSION['email'] = $row2['alunoEmail'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row2['alunoNome'];
+        $_SESSION['professor'] = false;
         echo "success";
     } else {
         echo 'fail';

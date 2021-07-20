@@ -22,7 +22,7 @@
                 },
                 success: function(response) {
                     if (response == "success") {
-                        window.location.href = "index.php";
+                        window.location.reload();
                         alert('Ok');
                     } else {
                         document.getElementById("loginPassword").className += " is-invalid";
@@ -76,6 +76,14 @@
                     }
                 }
             })
+        });
+    });
+    $("#btnSair").click(function() {
+        $.ajax({
+            url: './model/logout.php?opcao=sair',
+            success: function(data) {
+                window.location.reload();
+            }
         });
     });
 </script>

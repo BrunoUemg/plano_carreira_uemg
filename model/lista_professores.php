@@ -1,29 +1,55 @@
 <?php
-include 'conn.php';
-
-$query_prof = "SELECT * FROM professor INNER JOIN unidade WHERE professor.unidade_idUnidade = unidade.idUnidade;";
-$resultado_prof = $pdo->prepare($query_prof);
-$resultado_prof->execute();
-
-$prof = [];
-
-while($row_prof = $resultado_prof->fetch(PDO::FETCH_ASSOC)){
-    $idProfessor = $row_prof['idProfessor'];
-    $professorNome = $row_prof['professorNome'];
-    $professorMateria = $row_prof['professorMateria'];
-    $unidadeNome = $row_prof['unidadeNome'];
-    $professorLattes = $row_prof['professorLattes'];
-    $professorInfo = $row_prof['professorInfo'];
-    
-    $prof[] = [
-        'id' => $idProfessor, 
-        'professorNome' => $professorNome,
-        'professorMateria' => $professorMateria,
-        'unidadeNome' => $unidadeNome,
-        'professorLattes' => $professorLattes,
-        'professorInfo' => $professorInfo
-        ];
+require_once('conn.php');
+$opcao = isset($_GET['opcao']) ? $_GET['opcao'] : '';
+$valor = isset($_GET['valor']) ? $_GET['valor'] : '';
+if (!empty($opcao)) {
+    switch ($opcao) {
+        case 'unidade': {
+                echo getUnidades();
+                break;
+            }
+        case 'curso': {
+                echo getCursos();
+                break;
+            }
+        default: {
+                echo getAll();
+                break;
+            }
+    }
+} else {
+    echo getAll();
 }
 
-// echo json_encode($prof);
-echo json_encode(['data' => $prof]);
+function getAll()
+{
+    $pdo = Conectar();
+    $sql = 'SELECT * FROM professor INNER JOIN unidade ON professor.unidade_idUnidade = unidade.idUnidade';
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+    sleep(1);
+    echo json_encode(['data' => $stm->fetchAll(PDO::FETCH_ASSOC)]);
+    $pdo = null;
+}
+
+function getUnidades()
+{
+    $pdo = Conectar();
+    $sql = 'SELECT * FROM professor INNER JOIN unidade ON professor.unidade_idUnidade = unidade.idUnidade WHERE unidade.idUnidade = 1';
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+    sleep(1);
+    echo json_encode(['unidades' => $stm->fetchAll(PDO::FETCH_ASSOC)]);
+    $pdo = null;
+}
+
+function getCursos()
+{
+    $pdo = Conectar();
+    $sql = 'SELECT * FROM professor INNER JOIN unidade ON professor.unidade_idUnidade = unidade.idUnidade WHERE unidade.idUnidade = 1';
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+    sleep(1);
+    echo json_encode(['cursos' => $stm->fetchAll(PDO::FETCH_ASSOC)]);
+    $pdo = null;
+}
