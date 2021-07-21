@@ -11,9 +11,11 @@ $(document).ready(function(){
                 data = data[0];                
                 var selectbox = $('#profUnidade');
                 var selectbox2 = $('#unidadeAluno');
+                var selectbox3 = $('#profUnidadeEdit');
                 $.each(data, function (i, d) {
                     $('<option>').val(d.idUnidade).text(d.unidadeNome).appendTo(selectbox);
                     $('<option>').val(d.idUnidade).text(d.unidadeNome).appendTo(selectbox2);
+                    $('<option>').val(d.idUnidade).text(d.unidadeNome).appendTo(selectbox3);
                 });
             }
             $.ajax({

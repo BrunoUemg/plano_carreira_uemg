@@ -55,21 +55,21 @@ $(document).ready(function () {
         if (obj != null) {
           var data = Object.values(obj);
           data = data[0];
-          $("#profId").val(data[0].idProfessor);
-          $("#profNome").val(data[0].professorNome);
-          $("#profTel").val(data[0].professorTel);
-          $("#profDtaNascimento").val(data[0].professorDataNascimento);
-          $("#profCpf").val(data[0].professorCPF);
-          $("#profEmail").val(data[0].professorEmail);
-          $("#profSenha").val(data[0].professorSenha);
-          $("#profUnidade").val(data[0].unidade_idUnidade);
-          $("#profMateria").val(data[0].professorMateria);
-          $("#profLattes").val(data[0].professorLattes);
-          $("#profInfo").val(data[0].professorInfo);
+          $("#profIdEdit").val(data[0].idProfessor);
+          $("#profNomeEdit").val(data[0].professorNome);
+          $("#profTelEdit").val(data[0].professorTel);
+          $("#profDtaNascimentoEdit").val(data[0].professorDataNascimento);
+          $("#profCpfEdit").val(data[0].professorCPF);
+          $("#profEmailEdit").val(data[0].professorEmail);
+          $("#profSenhaEdit").val(data[0].professorSenha);
+          $("#profUnidadeEdit").val(data[0].unidade_idUnidade);
+          $("#profMateriaEdit").val(data[0].professorMateria);
+          $("#profLattesEdit").val(data[0].professorLattes);
+          $("#profInfoEdit").val(data[0].professorInfo);
           if (data[0].professorCoord === '001') {
-            $('#professorCoord').prop('checked', true);
+            $('#professorCoordEdit').prop('checked', true);
           } else {
-            $('#professorCoord').prop('checked', false);
+            $('#professorCoordEdit').prop('checked', false);
           }
           $('#btn-save').prop('disabled', false);
           $("#profEditCadastro").removeClass("visually-hidden");
@@ -80,26 +80,25 @@ $(document).ready(function () {
   });
 
   $('#editarContaProfessor').on('hide.bs.modal', function () {
-    $("#profId").val('');
-    $("#profNome").val('');
-    $("#profTel").val('');
-    $("#profDtaNascimento").val('');
-    $("#profCpf").val('');
-    $("#profEmail").val('');
-    $("#profSenha").val('');
-    $("#profUnidade").val('');
-    $("#profMateria").val('');
-    $("#profLattes").val('');
-    $("#profInfo").val('');
-    $('#professorCoord').prop('checked', false);
+    $("#profIdEdit").val('');
+    $("#profNomeEdit").val('');
+    $("#profTelEdit").val('');
+    $("#profDtaNascimentoEdit").val('');
+    $("#profCpfEdit").val('');
+    $("#profEmailEdit").val('');
+    $("#profSenhaEdit").val('');
+    $("#profUnidadeEdit").val('');
+    $("#profMateriaEdit").val('');
+    $("#profLattesEdit").val('');
+    $("#profInfoEdit").val('');
+    $('#professorCoordEdit').prop('checked', false);
     $("#profEditCadastro").addClass("visually-hidden");
     $("#loading-status").removeClass("visually-hidden");
   });
 
   $("#profEditCadastro").on("submit", function (event) {
     event.preventDefault();
-    var idProf = $("#profId").val();
-    console.log(idProf);
+    var idProf = $("#profIdEdit").val();
     $.ajax({
       method: "POST",
       url: `../model/manage_prof.php?opcao=edit&valor=${idProf}`,

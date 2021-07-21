@@ -25,17 +25,17 @@ function editProf($id)
         $dados['professorCoord'] = '000';
     }
     $update_professor = $pdo->prepare($query_professor);
-    $update_professor->bindParam(':professorNome', $dados['profNome']);
-    $update_professor->bindParam(':professorTel', $dados['profTel']);
-    $update_professor->bindParam(':professorDataNascimento', $dados['profDtaNascimento']);
-    $update_professor->bindParam(':professorCPF', $dados['profCpf']);
-    $update_professor->bindParam(':professorEmail', $dados['profEmail']);
-    $update_professor->bindParam(':professorSenha', $dados['profSenha']);
-    $update_professor->bindParam(':unidade_idUnidade', $dados['profUnidade']);
-    $update_professor->bindParam(':professorMateria', $dados['profMateria']);
-    $update_professor->bindParam(':professorLattes', $dados['profLattes']);
-    $update_professor->bindParam(':professorInfo', $dados['profInfo']);
-    $update_professor->bindParam(':professorCoord', $dados['professorCoord']);
+    $update_professor->bindParam(':professorNome', $dados['profNomeEdit']);
+    $update_professor->bindParam(':professorTel', $dados['profTelEdit']);
+    $update_professor->bindParam(':professorDataNascimento', $dados['profDtaNascimentoEdit']);
+    $update_professor->bindParam(':professorCPF', $dados['profCpfEdit']);
+    $update_professor->bindParam(':professorEmail', $dados['profEmailEdit']);
+    $update_professor->bindParam(':professorSenha', $dados['profSenhaEdit']);
+    $update_professor->bindParam(':unidade_idUnidade', $dados['profUnidadeEdit']);
+    $update_professor->bindParam(':professorMateria', $dados['profMateriaEdit']);
+    $update_professor->bindParam(':professorLattes', $dados['profLattesEdit']);
+    $update_professor->bindParam(':professorInfo', $dados['profInfoEdit']);
+    $update_professor->bindParam(':professorCoord', $dados['professorCoordEdit']);
     $update_professor->bindParam(':idProfessor', $id);
     if ($update_professor->execute()) {
         $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Professor alterado com sucesso!</div>'];

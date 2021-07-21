@@ -47,62 +47,62 @@ include_once "header.php";
           <form id="profEditCadastro" class="visually-hidden" method="POST" enctype="multipart/form-data" onload="return consultaUnidade()">
             <div class="mb-3">
               <label for="nome" class="form-label">Nome</label>
-              <input type="text" required class="form-control" id="profNome" name="profNome">
-              <input type="hidden" required class="form-control" disabled id="profId" name="profId">
+              <input type="text" required class="form-control" id="profNomeEdit" name="profNomeEdit">
+              <input type="hidden" required class="form-control" disabled id="profIdEdit" name="profIdEdit">
             </div>
 
             <div class="mb-3">
               <label for="tel" class="form-label">Telefone</label>
-              <input type="tel" required class="form-control" id="profTel" name="profTel">
+              <input type="tel" required class="form-control" id="profTelEdit" name="profTelEdit">
             </div>
 
             <div class="mb-3">
               <label for="dtaNascimento" class="form-label">Data de Nascimento</label>
-              <input type="date" required class="form-control" id="profDtaNascimento" name="profDtaNascimento">
+              <input type="date" required class="form-control" id="profDtaNascimentoEdit" name="profDtaNascimentoEdit">
             </div>
 
             <div class="mb-3">
               <label for="cpf" class="form-label">CPF</label>
-              <input type="text" required class="form-control" id="profCpf" name="profCpf">
+              <input type="text" required class="form-control" id="profCpfEdit" name="profCpfEdit">
             </div>
 
             <div class="mb-3">
               <label for="emailcad" class="form-label">Email</label>
-              <input type="email" required class="form-control" id="profEmail" name="profEmail">
+              <input type="email" required class="form-control" id="profEmailEdit" name="profEmailEdit">
             </div>
 
 
             <div class="mb-3">
               <label for="senha" class="form-label">Senha</label>
-              <input type="password" required class="form-control" id="profSenha" name="profSenha">
+              <input type="password" required class="form-control" id="profSenhaEdit" name="profSenhaEdit">
             </div>
 
             <div class="mb-3">
               <label for="unidade" class="form-label">Unidade</label>
-              <select class="form-control" required name="profUnidade" id="profUnidade">
+              <select class="form-control" required name="profUnidadeEdit" id="profUnidadeEdit">
                 <option value="">Selecione uma Unidade</option>
               </select>
             </div>
 
             <div class="mb-3">
               <label for="materia" class="form-label">Materia</label>
-              <input type="text" required class="form-control" id="profMateria" name="profMateria">
+              <input type="text" required class="form-control" id="profMateriaEdit" name="profMateriaEdit">
             </div>
 
             <div class="mb-3">
               <label for="lattes" class="form-label">Link Lattes</label>
-              <input type="url" class="form-control" id="profLattes" name="profLattes">
+              <input type="url" class="form-control" id="profLattesEdit" name="profLattesEdit">
             </div>
 
 
             <div class="mb-3">
               <label for="lattes" class="form-label">Descrição</label>
-              <textarea class="form-control" required name="profInfo" id="profInfo" rows="3"></textarea>
+              <textarea class="form-control" required name="profInfoEdit" id="profInfoEdit" rows="3"></textarea>
             </div>
 
             <div class="mb-3">
               <label class="form-check-label">Professor Coordenador</label>
-              <input class="form-check-input" type="checkbox" id="professorCoord" name="professorCoord" value='001'>
+              <input class="form-check-input" type="checkbox" id="professorCoordEdit" name="professorCoordEdit" value='001'>
             </div>
 
 

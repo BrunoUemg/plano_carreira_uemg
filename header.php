@@ -86,6 +86,14 @@ if (isset($_SESSION['login'])) {
             <li class="nav-item">
               <a href="./professores.php" class="nav-link">Professores</a>
             </li>
+            <?php
+            if (isset($_SESSION['professorCoord']) && $_SESSION['professorCoord'] === '001') {
+              echo '            <li class="nav-item">
+              <a href="./manage.php" class="nav-link">Gerenciar</a>
+            </li>';
+            }
+
+            ?>
             <li class="nav-item">
               <a href="./unidades.php" class="nav-link">Unidades</a>
             </li>
@@ -99,7 +107,6 @@ if (isset($_SESSION['login'])) {
                   include_once "./model/dropdown_menu.php";
                   echo '
                   <a href="" class="btn btn-outline-primary ms-4" id="btnSair"><i class="far fa-user mx-1"></i>Sair</a>';
-                  
                 } else {
                   include_once "./model/dropdown_login.php";
                 }
@@ -122,8 +129,8 @@ if (isset($_SESSION['login'])) {
       <div class="row">
         <span id="msg-cad"></span>
         <?php
-        if(!empty($_SESSION['msglogin'])){
-					echo $_SESSION['msglogin'];
-					unset($_SESSION['msglogin']);
-				}
+        if (!empty($_SESSION['msglogin'])) {
+          echo $_SESSION['msglogin'];
+          unset($_SESSION['msglogin']);
+        }
         ?>
