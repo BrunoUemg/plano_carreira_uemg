@@ -5,11 +5,15 @@ $valor = isset($_GET['valor']) ? $_GET['valor'] : '';
 if (!empty($opcao)) {
     switch ($opcao) {
         case 'unidade': {
-                echo getUnidades();
+                echo getUnidades($valor);
                 break;
             }
         case 'curso': {
-                echo getCursos();
+                echo getCursos($valor);
+                break;
+            }
+        case 'id': {
+                echo getOne($valor);
                 break;
             }
         default: {
@@ -51,5 +55,17 @@ function getCursos()
     $stm->execute();
     sleep(1);
     echo json_encode(['cursos' => $stm->fetchAll(PDO::FETCH_ASSOC)]);
+    $pdo = null;
+}
+
+function getOne($id)
+{
+    $pdo = Conectar();
+    $sql = 'SELECT * FROM professor INNER JOIN unidade ON professor.unidade_idUnidade = unidade.idUnidade WHERE idProfessor = :idProfessor';
+    $um_professor = $pdo->prepare($sql);
+    $um_professor->bindParam(':idProfessor', $id);
+    $um_professor->execute();
+    sleep(1);
+    echo json_encode(['One' => $um_professor->fetchAll(PDO::FETCH_ASSOC)]);
     $pdo = null;
 }
