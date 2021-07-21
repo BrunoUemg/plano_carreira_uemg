@@ -27,6 +27,7 @@
                     } else {
                         document.getElementById("loginPassword").className += " is-invalid";
                         document.getElementById("loginEmail").className += " is-invalid";
+                        window.location.reload();
                         alert('Errouuu');
                     }
                 }
