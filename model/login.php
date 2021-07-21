@@ -15,6 +15,7 @@ if (isset($_POST['login'])) {
         $_SESSION['nome'] = $row['professorNome'];
         $_SESSION['professor'] = true;
         $_SESSION['professorCoord'] = $row['professorCoord'];
+        $_SESSION['msglogin'] = '<div class="alert alert-success" role="alert">Seja bem vindo '.$_SESSION['nome']. '!</div>';
         echo "success";
         // header('location: ../professores.php');
     } elseif ($row2 = mysqli_fetch_array($select_data2, MYSQLI_ASSOC)) {
@@ -22,8 +23,11 @@ if (isset($_POST['login'])) {
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row2['alunoNome'];
         $_SESSION['professor'] = false;
+        $_SESSION['msglogin'] = '<div class="alert alert-success" role="alert">Seja bem vindo '.$_SESSION['nome']. '!</div>';
         echo "success";
     } else {
+       
+        $_SESSION['msglogin'] = '<div class="alert alert-danger" role="alert">Erro: Usuário ou senha incorreto!</div>';
         echo 'fail';
     }
 

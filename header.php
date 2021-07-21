@@ -96,8 +96,10 @@ if (isset($_SESSION['login'])) {
               <div class="dropdown dropstart">
                 <?php
                 if (isset($_SESSION['login'])) {
-                  echo $_SESSION["nome"] . '
+                  include_once "./model/dropdown_menu.php";
+                  echo '
                   <a href="" class="btn btn-outline-primary ms-4" id="btnSair"><i class="far fa-user mx-1"></i>Sair</a>';
+                  
                 } else {
                   include_once "./model/dropdown_login.php";
                 }
@@ -119,3 +121,9 @@ if (isset($_SESSION['login'])) {
 
       <div class="row">
         <span id="msg-cad"></span>
+        <?php
+        if(!empty($_SESSION['msglogin'])){
+					echo $_SESSION['msglogin'];
+					unset($_SESSION['msglogin']);
+				}
+        ?>
