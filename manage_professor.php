@@ -1,7 +1,15 @@
 <?php
 include_once "header.php";
 ?>
-<script src="./js/manage.js"></script>
+<script src="./js/manage_professor.js"></script>
+<div class="col-md-12 align-content-center">
+
+  <div class="align-self-center">
+    <h1 class="display-4">Gerenciar Professores</h1>
+  </div>
+
+</div>
+
 <div class="col-md-12 align-content-center mt-5">
 
   <table id="manageProfessores" class="display table table-striped dt-responsive nowrap" style="width:100%">
@@ -122,3 +130,5 @@ include_once "header.php";
   <?php
   include_once "footer.php";
   ?>
+
+  

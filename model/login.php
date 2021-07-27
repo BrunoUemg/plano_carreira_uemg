@@ -11,6 +11,7 @@ if (isset($_POST['login'])) {
 
     if ($row = mysqli_fetch_array($select_data, MYSQLI_ASSOC)) {
         $_SESSION['email'] = $row['professorEmail'];
+        $_SESSION['id'] = $row['idProfessor'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row['professorNome'];
         $_SESSION['professor'] = true;
@@ -20,6 +21,7 @@ if (isset($_POST['login'])) {
         // header('location: ../professores.php');
     } elseif ($row2 = mysqli_fetch_array($select_data2, MYSQLI_ASSOC)) {
         $_SESSION['email'] = $row2['alunoEmail'];
+        $_SESSION['id'] = $row2['idAluno'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $row2['alunoNome'];
         $_SESSION['professor'] = false;

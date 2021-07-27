@@ -22,7 +22,7 @@ if (isset($_SESSION['login'])) {
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="img/uemgImagem.ico" type="image/x-icon" /> 
+  <link rel="icon" href="img/uemgImagem.ico" type="image/x-icon" />
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -59,6 +59,9 @@ if (isset($_SESSION['login'])) {
   <!-- Jquery Confirm -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+  <script type="text/javascript">
+    var user = <?php echo json_encode($_SESSION['id']) ?>;
+  </script>
   <title>UEMG - Plano de Carreira</title>
 </head>
 
@@ -88,11 +91,13 @@ if (isset($_SESSION['login'])) {
             </li>
             <?php
             if (isset($_SESSION['professorCoord']) && $_SESSION['professorCoord'] === '001') {
+              include_once "./model/coord.php";
+            }
+            if (isset($_SESSION['professor']) && $_SESSION['professor']) {
               echo '            <li class="nav-item">
-              <a href="./manage.php" class="nav-link">Gerenciar</a>
+              <a href="./solicitacoes.php" class="nav-link">Solicitações</a>
             </li>';
             }
-
             ?>
             <li class="nav-item">
               <a href="./unidades.php" class="nav-link">Unidades</a>

@@ -39,18 +39,18 @@ $(document).ready(function () {
         targets: [6],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a value="' + data + '" class="btn btn-sm btn-outline-warning btn-apoio">Solicitar Professor</a>';
+          return '<form class="formApoio"> <input type="hidden" value="' + data + '" name="idProfApoio"> <input type="hidden" value="'+user+'"name="idAlunoApoio"><button type="submit" class="btn btn-sm btn-outline-warning btn-apoio">Solicitar Professor</button></form>';
         }
       }
     ]
   });
+
 });
 
 
-
-
-$(document).on('click', '.btn-apoio', function () {
-  var idProf = $(this).attr("value");
+$(document).on('submit', '.formApoio', function (e) {
+  e.preventDefault();
+  var dataApoio = new FormData(this);
   $.confirm({
     title: 'Atenção!',
     content: 'Você tem certeza que deseja realizar o pedido de plano de carreira para o professor selecionado?',
@@ -60,16 +60,15 @@ $(document).on('click', '.btn-apoio', function () {
         btnClass: 'btn-blue',
         keys: ['enter', 'shift'],
         action: function () {
-          console.log(idProf);
           $.ajax({
             url: "../model/cadastro.php?opcao=apoio",
-            dataType: "json",
             type: "POST",
-            data: $(this).attr("value"),
+            data: dataApoio,
             contentType: false,
             processData: false,
             success: function (retorna) {
               if (retorna['sit']) {
+                $(".modal").modal('hide');
                 $("#msg-cad").html(retorna['msg']);
               } else {
                 $("#msg-cad").html(retorna['msg']);
