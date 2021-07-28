@@ -28,23 +28,23 @@ $(document).ready(function () {
         targets: [1],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a class="btn btn-sm btn-outline-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editarContaProfessor" data-id="' + data + '">Editar Unidade</a>';
+          return '<a class="btn btn-sm btn-outline-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editaUnidade" data-id="' + data + '">Editar Unidade</a>';
         }
       },
       {
         targets: [2],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a value="' + data + '" nome-prof="' + row.professorNome + '" class="btn btn-sm btn-outline-danger btn-delet">Excluir Unidade</a>';
+          return '<a value="' + data + '" nome-unidade="' + row.unidadeNome + '" class="btn btn-sm btn-outline-danger btn-delet">Excluir Unidade</a>';
         }
       }
     ]
   });
 
-  $('#editarUnidade').on('show.bs.modal', function (e) {
-    var idProf = $(e.relatedTarget).data('id');
+  $('#editaUnidade').on('show.bs.modal', function (e) {
+    var idUni = $(e.relatedTarget).data('id');
     $.ajax({
-      url: `../model/lista_professores.php?opcao=id&valor=${idProf}`,
+      url: `../model/consulta.php?opcao=uni&valor=${idUni}`,
       dataType: "json",
       type: "GET",
       contentType: false,
@@ -53,78 +53,75 @@ $(document).ready(function () {
         if (obj != null) {
           var data = Object.values(obj);
           data = data[0];
-          $("#profIdEdit").val(data[0].idProfessor);
-          $("#profNomeEdit").val(data[0].professorNome);
-          $("#profTelEdit").val(data[0].professorTel);
-          $("#profDtaNascimentoEdit").val(data[0].professorDataNascimento);
-          $("#profCpfEdit").val(data[0].professorCPF);
-          $("#profEmailEdit").val(data[0].professorEmail);
-          $("#profSenhaEdit").val(data[0].professorSenha);
-          $("#profUnidadeEdit").val(data[0].unidade_idUnidade);
-          $("#profMateriaEdit").val(data[0].professorMateria);
-          $("#profLattesEdit").val(data[0].professorLattes);
-          $("#profInfoEdit").val(data[0].professorInfo);
-          if (data[0].professorCoord === '001') {
-            $('#professorCoordEdit').prop('checked', true);
-          } else {
-            $('#professorCoordEdit').prop('checked', false);
-          }
+          $("input[name='nomeUnidade']").val(data[0].unidadeNome);
+          $("input[name='idUnidade']").val(data[0].idUnidade);
           $('#btn-save').prop('disabled', false);
-          $("#profEditCadastro").removeClass("visually-hidden");
+          $(".formEditUnidade").removeClass("visually-hidden");
           $("#loading-status").addClass("visually-hidden");
         }
       }
     });
   });
 
-  $('#editarUnidade').on('hide.bs.modal', function () {
-    $("#profIdEdit").val('');
-    $("#profNomeEdit").val('');
-    $("#profTelEdit").val('');
-    $("#profDtaNascimentoEdit").val('');
-    $("#profCpfEdit").val('');
-    $("#profEmailEdit").val('');
-    $("#profSenhaEdit").val('');
-    $("#profUnidadeEdit").val('');
-    $("#profMateriaEdit").val('');
-    $("#profLattesEdit").val('');
-    $("#profInfoEdit").val('');
-    $('#professorCoordEdit').prop('checked', false);
-    $("#profEditCadastro").addClass("visually-hidden");
+  $('#editaUnidade').on('hide.bs.modal', function () {
+    $("input[name='nomeUnidade']").val('');
+    $("input[name='idUnidade']").val('');
+    $(".formEditUnidade").addClass("visually-hidden");
     $("#loading-status").removeClass("visually-hidden");
   });
 
-  $("#profEditCadastro").on("submit", function (event) {
+  $("#editarUnidade").on("submit", function (event) {
     event.preventDefault();
-    var idProf = $("#profIdEdit").val();
+    var idUnidade = $("input[name='idUnidade']").val();
     $.ajax({
       method: "POST",
-      url: `../model/manage_prof.php?opcao=edit&valor=${idProf}`,
+      url: `../model/manage_unidade.php?opcao=edit&valor=${idUnidade}`,
       data: new FormData(this),
       contentType: false,
       processData: false,
       success: function (retorna) {
         if (retorna['sit']) {
           $("#msg-cad").html(retorna['msg']);
-          $('#editarContaProfessor').modal('hide');
-          $('#manageProfessores').DataTable().ajax.reload();
+          $('#editaUnidade').modal('hide');
+          $('#manageUnidade').DataTable().ajax.reload();
         } else {
           $("#msg-cad").html(retorna['msg']);
         }
       }
     })
   });
+
+  $("#addUnidade").on("submit", function (event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: `../model/manage_unidade.php?opcao=add`,
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
+      success: function (retorna) {
+        if (retorna['sit']) {
+          $("#msg-cad").html(retorna['msg']);
+          $('#cadastroUnidade').modal('hide');
+          $('#manageUnidade').DataTable().ajax.reload();
+        } else {
+          $("#msg-cad").html(retorna['msg']);
+        }
+      }
+    })
+  });
+
 });
 
 
 
 
 $(document).on('click', '.btn-delet', function () {
-  var idProf = $(this).attr("value");
-  var nomeProf = $(this).attr("nome-prof");
+  var idUnidade = $(this).attr("value");
+  var nomeUnidade = $(this).attr("nome-unidade");
   $.confirm({
     title: 'Atenção!',
-    content: `Você tem certeza que deseja excluir o professor ${nomeProf}?`,
+    content: `Você tem certeza que deseja excluir a unidade ${nomeUnidade}?`,
     buttons: {
       confirm: {
         text: 'Sim',
@@ -132,7 +129,7 @@ $(document).on('click', '.btn-delet', function () {
         keys: ['enter', 'shift'],
         action: function () {
           $.ajax({
-            url: `../model/manage_prof.php?opcao=delete&valor=${idProf}`,
+            url: `../model/manage_unidade.php?opcao=delete&valor=${idUnidade}`,
             dataType: "json",
             type: "POST",
             data: $(this).attr("value"),
@@ -141,7 +138,7 @@ $(document).on('click', '.btn-delet', function () {
             success: function (retorna) {
               if (retorna['sit']) {
                 $("#msg-cad").html(retorna['msg']);
-                $('#manageProfessores').DataTable().ajax.reload();
+                $('#manageUnidade').DataTable().ajax.reload();
               } else {
                 $("#msg-cad").html(retorna['msg']);
               }

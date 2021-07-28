@@ -21,8 +21,8 @@ include_once "header.php";
         <th>Aluno</th>
         <th>Data do Pedido</th>
         <th>Status</th>
-        <th>Editar</th>
-        <th>Excluir</th>
+        <th>WhatsApp</th>
+        <th>Informações</th>
       </tr>
     </thead>
     <tfoot>
@@ -30,8 +30,8 @@ include_once "header.php";
         <th>Aluno</th>
         <th>Data do Pedido</th>
         <th>Status</th>
-        <th>Editar</th>
-        <th>Excluir</th>
+        <th>WhatsApp</th>
+        <th>Informações</th>
       </tr>
     </tfoot>
   </table>
@@ -43,8 +43,7 @@ include_once "header.php";
         <th>Aluno</th>
         <th>Data do Pedido</th>
         <th>Status</th>
-        <th>Editar</th>
-        <th>Excluir</th>
+        <th>Curso</th>
       </tr>
     </thead>
     <tfoot>
@@ -52,8 +51,7 @@ include_once "header.php";
         <th>Aluno</th>
         <th>Data do Pedido</th>
         <th>Status</th>
-        <th>Editar</th>
-        <th>Excluir</th>
+        <th>Curso</th>
       </tr>
     </tfoot>
   </table>

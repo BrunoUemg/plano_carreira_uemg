@@ -28,7 +28,7 @@ $(document).ready(function () {
         targets: [1],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a class="btn btn-sm btn-outline-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editarContaProfessor" data-id="' + data + '">Editar Curso</a>';
+          return '<a class="btn btn-sm btn-outline-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editaCurso" data-id="' + data + '">Editar Curso</a>';
         }
       },
       {
@@ -41,10 +41,10 @@ $(document).ready(function () {
     ]
   });
 
-  $('#editarUnidade').on('show.bs.modal', function (e) {
-    var idProf = $(e.relatedTarget).data('id');
+  $('#editaCurso').on('show.bs.modal', function (e) {
+    var idCur = $(e.relatedTarget).data('id');
     $.ajax({
-      url: `../model/lista_professores.php?opcao=id&valor=${idProf}`,
+      url: `../model/consulta.php?opcao=cur&valor=${idCur}`,
       dataType: "json",
       type: "GET",
       contentType: false,
@@ -53,67 +53,64 @@ $(document).ready(function () {
         if (obj != null) {
           var data = Object.values(obj);
           data = data[0];
-          $("#profIdEdit").val(data[0].idProfessor);
-          $("#profNomeEdit").val(data[0].professorNome);
-          $("#profTelEdit").val(data[0].professorTel);
-          $("#profDtaNascimentoEdit").val(data[0].professorDataNascimento);
-          $("#profCpfEdit").val(data[0].professorCPF);
-          $("#profEmailEdit").val(data[0].professorEmail);
-          $("#profSenhaEdit").val(data[0].professorSenha);
-          $("#profUnidadeEdit").val(data[0].unidade_idUnidade);
-          $("#profMateriaEdit").val(data[0].professorMateria);
-          $("#profLattesEdit").val(data[0].professorLattes);
-          $("#profInfoEdit").val(data[0].professorInfo);
-          if (data[0].professorCoord === '001') {
-            $('#professorCoordEdit').prop('checked', true);
-          } else {
-            $('#professorCoordEdit').prop('checked', false);
-          }
+          $("input[name='nomeCurso']").val(data[0].cursoNome);
+          $("input[name='idCurso']").val(data[0].idCurso);
           $('#btn-save').prop('disabled', false);
-          $("#profEditCadastro").removeClass("visually-hidden");
+          $(".formEditCurso").removeClass("visually-hidden");
           $("#loading-status").addClass("visually-hidden");
         }
       }
     });
   });
 
-  $('#editarUnidade').on('hide.bs.modal', function () {
-    $("#profIdEdit").val('');
-    $("#profNomeEdit").val('');
-    $("#profTelEdit").val('');
-    $("#profDtaNascimentoEdit").val('');
-    $("#profCpfEdit").val('');
-    $("#profEmailEdit").val('');
-    $("#profSenhaEdit").val('');
-    $("#profUnidadeEdit").val('');
-    $("#profMateriaEdit").val('');
-    $("#profLattesEdit").val('');
-    $("#profInfoEdit").val('');
-    $('#professorCoordEdit').prop('checked', false);
-    $("#profEditCadastro").addClass("visually-hidden");
+  $('#idCurso').on('hide.bs.modal', function () {
+    $("input[name='nomeCurso']").val('');
+    $("input[name='idCurso']").val('');
+    $(".formEditCurso").addClass("visually-hidden");
     $("#loading-status").removeClass("visually-hidden");
   });
 
-  $("#profEditCadastro").on("submit", function (event) {
+  $("#editarCurso").on("submit", function (event) {
     event.preventDefault();
-    var idProf = $("#profIdEdit").val();
+    var idCurso = $("input[name='idCurso']").val();
     $.ajax({
       method: "POST",
-      url: `../model/manage_prof.php?opcao=edit&valor=${idProf}`,
+      url: `../model/manage_curso.php?opcao=edit&valor=${idCurso}`,
       data: new FormData(this),
       contentType: false,
       processData: false,
       success: function (retorna) {
         if (retorna['sit']) {
           $("#msg-cad").html(retorna['msg']);
-          $('#editarContaProfessor').modal('hide');
-          $('#manageProfessores').DataTable().ajax.reload();
+          $('#editaCurso').modal('hide');
+          $('#manageCurso').DataTable().ajax.reload();
         } else {
           $("#msg-cad").html(retorna['msg']);
         }
       }
     })
   });
+
+  $("#addCurso").on("submit", function (event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: `../model/manage_curso.php?opcao=add`,
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
+      success: function (retorna) {
+        if (retorna['sit']) {
+          $("#msg-cad").html(retorna['msg']);
+          $('#cadastroCurso').modal('hide');
+          $('#manageCurso').DataTable().ajax.reload();
+        } else {
+          $("#msg-cad").html(retorna['msg']);
+        }
+      }
+    })
+  });
+
 });
 
 
@@ -124,7 +121,7 @@ $(document).on('click', '.btn-delet', function () {
   var nomeCurso = $(this).attr("nome-curso");
   $.confirm({
     title: 'Atenção!',
-    content: `Você tem certeza que deseja excluir o curso ${nomeCurso}?`,
+    content: `Você tem certeza que deseja excluir a unidade ${nomeCurso}?`,
     buttons: {
       confirm: {
         text: 'Sim',
@@ -132,7 +129,7 @@ $(document).on('click', '.btn-delet', function () {
         keys: ['enter', 'shift'],
         action: function () {
           $.ajax({
-            url: `../model/manage_prof.php?opcao=delete&valor=${idCurso}`,
+            url: `../model/manage_curso.php?opcao=delete&valor=${idCurso}`,
             dataType: "json",
             type: "POST",
             data: $(this).attr("value"),
@@ -141,7 +138,7 @@ $(document).on('click', '.btn-delet', function () {
             success: function (retorna) {
               if (retorna['sit']) {
                 $("#msg-cad").html(retorna['msg']);
-                $('#manageCursos').DataTable().ajax.reload();
+                $('#manageCurso').DataTable().ajax.reload();
               } else {
                 $("#msg-cad").html(retorna['msg']);
               }

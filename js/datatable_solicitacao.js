@@ -7,7 +7,7 @@ $(document).ready(function () {
       { "data": "alunoNome" },
       { "data": "planoCarreiraDtaPedido" },
       { "data": "planoCarreiraStatus" },
-      { "data": "idProfessor" },
+      { "data": "alunoTel" },
       { "data": "idProfessor" }
     ],
     "language": {
@@ -35,17 +35,24 @@ $(document).ready(function () {
         }
       },
       {
+        targets: [2],
+        searchable: true,
+        render: function (data) {
+            return '<a target="_blank" class="btn btn-sm btn-success"><i class="far fa-check-circle"></i></a>';
+        }
+      },
+      {
         targets: [3],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a href="' + data + '" target="_blank" class="btn btn-sm btn-outline-primary">Currículo Lattes</a>';
+          return '<a href="https://api.whatsapp.com/send?phone=55' + data + '" target="_blank" class="btn btn-sm btn-success"><i class="fab fa-whatsapp"></i></a>';
         }
       },
       {
         targets: [4],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a value="' + data + '" class="btn btn-sm btn-outline-warning btn-apoio">Solicitar Professor</a>';
+          return '<a class="btn btn-sm btn-outline-primary btn-apoio">Informações</a>';
         }
       }
     ]
@@ -58,8 +65,7 @@ $(document).ready(function () {
       { "data": "alunoNome" },
       { "data": "planoCarreiraDtaPedido" },
       { "data": "planoCarreiraStatus" },
-      { "data": "idProfessor" },
-      { "data": "idProfessor" }
+      { "data": "cursoNome" }
     ],
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
@@ -85,18 +91,11 @@ $(document).ready(function () {
           return moment(data).format('DD MMMM YYYY HH:mm:ss');
         }
       },
-      {
-        targets: [3],
-        searchable: false,
-        render: function (data, type, row, meta) {
-          return '<a href="' + data + '" target="_blank" class="btn btn-sm btn-outline-primary">Currículo Lattes</a>';
-        }
-      },
-      {
-        targets: [4],
-        searchable: false,
-        render: function (data, type, row, meta) {
-          return '<a value="' + data + '" class="btn btn-sm btn-outline-warning btn-apoio">Solicitar Professor</a>';
+            {
+        targets: [2],
+        searchable: true,
+        render: function (data) {
+            return '<a target="_blank" class="btn btn-sm btn-warning"><i class="fas fa-spinner"></i></i></a>';
         }
       }
     ]
