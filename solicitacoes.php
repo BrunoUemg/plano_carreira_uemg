@@ -1,6 +1,10 @@
 <?php
 include_once "header.php";
 ?>
+<?php if($_SESSION['professor'] == false){
+ echo "<script>window.location='index.php'</script>";
+
+} ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.19/dataRender/datetime.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/pt-br.js"></script>

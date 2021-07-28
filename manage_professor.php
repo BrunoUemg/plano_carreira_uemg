@@ -1,6 +1,11 @@
 <?php
 include_once "header.php";
 ?>
+
+<?php if($_SESSION['professor'] == false || $_SESSION['professorCoord'] != 001){
+ echo "<script>window.location='index.php'</script>";
+
+} ?>
 <script src="./js/manage_professor.js"></script>
 <div class="col-md-12 align-content-center">
 
