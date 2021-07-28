@@ -60,7 +60,17 @@ if (isset($_SESSION['login'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
   <script type="text/javascript">
-    var user = <?php echo json_encode($_SESSION['id']) ?>;
+    var user = <?php if(isset($_SESSION['id'])){
+      echo json_encode($_SESSION['id']);
+    }else{
+      echo -1;
+    } ?>;
+
+    var prof = <?php if(isset($_SESSION['professor'])){
+      echo json_encode($_SESSION['professor']);
+    }else{
+      echo -1;
+    } ?>;
   </script>
   <title>UEMG - Plano de Carreira</title>
 </head>

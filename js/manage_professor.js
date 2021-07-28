@@ -1,7 +1,7 @@
 $(document).ready(function () {
   var table = $('#manageProfessores').DataTable({
     responsive: true,
-    ajax: './model/lista_professores.php?opcao=',
+    ajax: '../model/lista_professores.php?opcao=',
     columns: [
       { "data": "professorNome" },
       { "data": "professorMateria" },
