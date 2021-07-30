@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $.ajax({
         type: "get",
-        url: "../model/consulta.php?opcao=unidade",
+        url: "./model/consulta.php?opcao=unidade",
         data: { unidades: $("#unidades").val() },
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
@@ -20,7 +20,7 @@ $(document).ready(function(){
             }
             $.ajax({
                 type: "get",
-                url: "../model/consulta.php?opcao=curso",
+                url: "./model/consulta.php?opcao=curso",
                 data: { cursos: $("#cursos").val() },
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",

@@ -44,7 +44,7 @@ $(document).ready(function () {
   $('#editaUnidade').on('show.bs.modal', function (e) {
     var idUni = $(e.relatedTarget).data('id');
     $.ajax({
-      url: `../model/consulta.php?opcao=uni&valor=${idUni}`,
+      url: `./model/consulta.php?opcao=uni&valor=${idUni}`,
       dataType: "json",
       type: "GET",
       contentType: false,

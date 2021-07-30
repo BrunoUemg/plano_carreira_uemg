@@ -2,7 +2,7 @@
   "id": "ffe54b18-e9f7-441e-94c9-bbd20fd9b48e",
   "version": "2.0",
   "name": "plano_carreira",
-  "url": "http://localhost/index.php",
+  "url": "http://localhost/plano/index.php",
   "tests": [{
     "id": "df72d8a2-c3a4-410b-8f5c-31d52f94e314",
     "name": "register_teacher_plano_carreira",
@@ -825,7 +825,7 @@
       "id": "61456880-7bcb-4e55-b44a-d22f96e2660a",
       "comment": "",
       "command": "open",
-      "target": "http://localhost/index.php",
+      "target": "http://localhost/plano/index.php",
       "targets": [],
       "value": ""
     }, {

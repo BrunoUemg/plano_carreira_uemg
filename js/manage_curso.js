@@ -44,7 +44,7 @@ $(document).ready(function () {
   $('#editaCurso').on('show.bs.modal', function (e) {
     var idCur = $(e.relatedTarget).data('id');
     $.ajax({
-      url: `../model/consulta.php?opcao=cur&valor=${idCur}`,
+      url: `./model/consulta.php?opcao=cur&valor=${idCur}`,
       dataType: "json",
       type: "GET",
       contentType: false,

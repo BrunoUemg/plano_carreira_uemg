@@ -1,7 +1,7 @@
 $(document).ready(function () {
   var table = $('#manageProfessores').DataTable({
     responsive: true,
-    ajax: '../model/lista_professores.php?opcao=',
+    ajax: './model/lista_professores.php?opcao=',
     columns: [
       { "data": "professorNome" },
       { "data": "professorMateria" },
@@ -46,7 +46,7 @@ $(document).ready(function () {
   $('#editarContaProfessor').on('show.bs.modal', function (e) {
     var idProf = $(e.relatedTarget).data('id');
     $.ajax({
-      url: `../model/lista_professores.php?opcao=id&valor=${idProf}`,
+      url: `./model/lista_professores.php?opcao=id&valor=${idProf}`,
       dataType: "json",
       type: "GET",
       contentType: false,
