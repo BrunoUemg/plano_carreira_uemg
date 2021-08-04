@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  var table = $('#dtbAceito').DataTable({
+  var table1 = $('#dtbAceito').DataTable({
     responsive: true,
     ajax: './model/consulta.php?opcao=solicitacaoaceita&valor=' + user + '',
     columns: [
@@ -37,8 +37,8 @@ $(document).ready(function () {
       {
         targets: [2],
         searchable: true,
-        render: function (data) {
-            return '<a target="_blank" class="btn btn-sm btn-success"><i class="far fa-check-circle"></i></a>';
+        render: function (data, type, row) {
+          return '<form class="formApoioStatus"> <input type="hidden" value="' + row.idPlanoCarreira + '" name="idPlanoCarreira"> <input type="hidden" value="' + row.alunoNome + '"name="alunoNome"><button type="submit" class="btn btn-sm btn-success btn-status"><i class="far fa-check-circle"></i></i></button></form>';
         }
       },
       {
@@ -52,13 +52,13 @@ $(document).ready(function () {
         targets: [4],
         searchable: false,
         render: function (data, type, row, meta) {
-          return '<a class="btn btn-sm btn-outline-primary btn-apoio">Informações</a>';
+          return '<button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#infoAluno" data-id="' + row.idPlanoCarreira + '" data-nome="' + row.alunoNome + '">Informações</button>';
         }
       }
     ]
   });
 
-  var table = $('#dtbSolicitacoes').DataTable({
+  var table2 = $('#dtbSolicitacoes').DataTable({
     responsive: true,
     ajax: './model/consulta.php?opcao=solicitacaodata&valor=' + user + '',
     columns: [
@@ -91,43 +91,94 @@ $(document).ready(function () {
           return moment(data).format('DD MMMM YYYY HH:mm:ss');
         }
       },
-            {
+      {
         targets: [2],
         searchable: true,
-        render: function (data) {
-            return '<a target="_blank" class="btn btn-sm btn-warning"><i class="fas fa-spinner"></i></i></a>';
+        render: function (data, type, row) {
+          return '<form class="formApoioStatus"> <input type="hidden" value="' + row.idPlanoCarreira + '" name="idPlanoCarreira"> <input type="hidden" value="' + row.alunoNome + '"name="alunoNome"><button type="submit" class="btn btn-sm btn-warning btn-status"><i class="fas fa-spinner"></i></i></button></form>';
         }
       }
     ]
   });
 
+  $('#infoAluno').on('show.bs.modal', function (e) {
+    var idPlano = $(e.relatedTarget).data('id');
+    var nomeAluno = $(e.relatedTarget).data('nome');
+    $.ajax({
+      url: `./model/consulta.php?opcao=info&valor=${idPlano}`,
+      dataType: "json",
+      type: "GET",
+      contentType: false,
+      processData: false,
+      success: function (obj) {
+        if (obj != null) {
+          var data = Object.values(obj);
+          data = data[0];
+          $(".nome-aluno").text(`Informações Aluno ${nomeAluno}`);
+          $("#infoAlunoText").val(data[0].planoCarreiraInfo);
+          $("#planoEdit").val(data[0].idPlanoCarreira);
+          $('#btn-save').prop('disabled', false);
+          $("#FormInfoAluno").removeClass("visually-hidden");
+          $("#loading-status").addClass("visually-hidden");
+        }
+      }
+    });
+  });
+
+  $('#infoAluno').on('hide.bs.modal', function () {
+    $("#planoEdit").val('');
+    $("#infoAlunoText").val('');
+    $(".nome-aluno").text(`Informações Aluno`);
+    $("#FormInfoAluno").addClass("visually-hidden");
+    $("#loading-status").removeClass("visually-hidden");
+  });
+
+  $("#FormInfoAluno").on("submit", function (event) {
+    event.preventDefault();
+    $.ajax({
+      method: "POST",
+      url: `./model/status_solicitacao.php?opcao=edit`,
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
+      success: function (retorna) {
+        if (retorna['sit']) {
+          $("#msg-cad").html(retorna['msg']);
+          $('#infoAluno').modal('hide');
+          $('#dtbAceito').DataTable().ajax.reload();
+        } else {
+          $("#msg-cad").html(retorna['msg']);
+        }
+      }
+    })
+  });
+
 });
 
 
-
-
-$(document).on('click', '.btn-apoio', function () {
-  var idProf = $(this).attr("value");
+$(document).on('submit', '.formApoioStatus', function (e) {
+  e.preventDefault();
+  var dataApoio = new FormData(this);
   $.confirm({
     title: 'Atenção!',
-    content: 'Você tem certeza que deseja realizar o pedido de plano de carreira para o professor selecionado?',
+    content: `Você tem certeza que deseja aceitar o pedido de aluno ${dataApoio.get('alunoNome')}? `,
     buttons: {
       confirm: {
-        text: 'Sim',
-        btnClass: 'btn-blue',
+        text: 'Aceitar',
+        btnClass: 'btn-success',
         keys: ['enter', 'shift'],
         action: function () {
-          console.log(idProf);
           $.ajax({
-            url: "../model/cadastro.php?opcao=apoio",
-            dataType: "json",
+            url: "./model/status_solicitacao.php?opcao=aceita",
             type: "POST",
-            data: $(this).attr("value"),
+            data: dataApoio,
             contentType: false,
             processData: false,
             success: function (retorna) {
               if (retorna['sit']) {
                 $("#msg-cad").html(retorna['msg']);
+                $('#dtbSolicitacoes').DataTable().ajax.reload();
+                $('#dtbAceito').DataTable().ajax.reload();
               } else {
                 $("#msg-cad").html(retorna['msg']);
               }
@@ -136,8 +187,13 @@ $(document).on('click', '.btn-apoio', function () {
         }
       },
       cancel: {
-        text: 'Não',
+        text: 'Recusar',
         btnClass: 'btn-red',
+        keys: ['enter', 'shift']
+      },
+      sair: {
+        text: 'Sair',
+        btnClass: 'btn-light',
         keys: ['enter', 'shift']
       }
     }

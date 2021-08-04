@@ -1,4 +1,4 @@
-    <a href="" class="btn btn-outline-primary ms-4 " data-bs-toggle="dropdown">Entrar</a>
+    <a href="" class="btn btn-outline-primary ms-4" data-bs-toggle="dropdown">Entrar</a>
 
     <!-- Dropdown Login -->
 
@@ -30,6 +30,7 @@
         <a class="dropdown-item" href="#">Esqueceu a senha?</a>
     </div>
     <!-- Dropdown login fim -->
+    
     <!-- Modal Cadastro Professor inicio -->
     <div class="modal fade" id="criarContaProfessor" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable">

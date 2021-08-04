@@ -36,6 +36,10 @@ if (!empty($opcao)) {
 				echo getSolicitacaoAceita($valor);
 				break;
 			}
+		case 'info': {
+				echo getInfo($valor);
+				break;
+			}
 	}
 }
 
@@ -124,6 +128,18 @@ function getSolicitacaoAceita($id)
 	$sql = 'SELECT * FROM `planocarreira` INNER JOIN professor ON professor_idProfessor = idProfessor INNER JOIN aluno ON aluno_idAluno = idAluno INNER JOIN curso ON curso_idCurso = idCurso WHERE professor_idProfessor = :idProfessor && planoCarreiraStatus = 001';
 	$stm = $pdo->prepare($sql);
 	$stm->bindParam(':idProfessor', $id);
+	$stm->execute();
+	sleep(1);
+	echo json_encode(['data' => $stm->fetchAll(PDO::FETCH_ASSOC)]);
+	$pdo = null;
+}
+
+function getInfo($id)
+{
+	$pdo = Conectar();
+	$sql = 'SELECT * FROM `planocarreira` WHERE idPlanoCarreira = :idPlano';
+	$stm = $pdo->prepare($sql);
+	$stm->bindParam(':idPlano', $id);
 	$stm->execute();
 	sleep(1);
 	echo json_encode(['data' => $stm->fetchAll(PDO::FETCH_ASSOC)]);

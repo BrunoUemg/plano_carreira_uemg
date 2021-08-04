@@ -65,7 +65,7 @@ $(document).on('submit', '.formApoio', function (e) {
           keys: ['enter', 'shift'],
           action: function () {
             $.ajax({
-              url: "../model/cadastro.php?opcao=apoio",
+              url: "./model/cadastro.php?opcao=apoio",
               type: "POST",
               data: dataApoio,
               contentType: false,
