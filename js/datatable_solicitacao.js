@@ -38,7 +38,7 @@ $(document).ready(function () {
         targets: [2],
         searchable: true,
         render: function (data, type, row) {
-          return '<form class="formApoioStatus"> <input type="hidden" value="' + row.idPlanoCarreira + '" name="idPlanoCarreira"> <input type="hidden" value="' + row.alunoNome + '"name="alunoNome"><button type="submit" class="btn btn-sm btn-success btn-status"><i class="far fa-check-circle"></i></i></button></form>';
+          return '<button type="submit" class="btn btn-sm btn-success btn-status"><i class="far fa-check-circle"></i></i></button>';
         }
       },
       {
