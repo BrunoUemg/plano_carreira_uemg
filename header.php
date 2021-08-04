@@ -110,12 +110,6 @@ if (isset($_SESSION['login'])) {
             }
             ?>
             <li class="nav-item">
-              <a href="./unidades.php" class="nav-link">Unidades</a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">Cursos</a>
-            </li>
-            <li class="nav-item">
               <div class="dropdown dropstart">
                 <?php
                 if (isset($_SESSION['login'])) {
