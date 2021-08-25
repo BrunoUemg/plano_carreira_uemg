@@ -14,7 +14,7 @@ include_once "header.php";
 </div>
 
 <div class="col-md-6">
-  <img class="rounded img-fluid" src="https://www.uemg.br/images/1_uemg.png" alt="">
+  <img class="rounded img-fluid" src="./img/1_uemg.png" alt="">
 </div>
 
 <?php

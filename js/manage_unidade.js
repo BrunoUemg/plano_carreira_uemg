@@ -75,7 +75,7 @@ $(document).ready(function () {
     var idUnidade = $("input[name='idUnidade']").val();
     $.ajax({
       method: "POST",
-      url: `../model/manage_unidade.php?opcao=edit&valor=${idUnidade}`,
+      url: `./model/manage_unidade.php?opcao=edit&valor=${idUnidade}`,
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -95,7 +95,7 @@ $(document).ready(function () {
     event.preventDefault();
     $.ajax({
       method: "POST",
-      url: `../model/manage_unidade.php?opcao=add`,
+      url: `./model/manage_unidade.php?opcao=add`,
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -129,7 +129,7 @@ $(document).on('click', '.btn-delet', function () {
         keys: ['enter', 'shift'],
         action: function () {
           $.ajax({
-            url: `../model/manage_unidade.php?opcao=delete&valor=${idUnidade}`,
+            url: `./model/manage_unidade.php?opcao=delete&valor=${idUnidade}`,
             dataType: "json",
             type: "POST",
             data: $(this).attr("value"),

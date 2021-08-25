@@ -101,7 +101,7 @@ $(document).ready(function () {
     var idProf = $("#profIdEdit").val();
     $.ajax({
       method: "POST",
-      url: `../model/manage_prof.php?opcao=edit&valor=${idProf}`,
+      url: `./model/manage_prof.php?opcao=edit&valor=${idProf}`,
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -134,7 +134,7 @@ $(document).on('click', '.btn-delet', function () {
         keys: ['enter', 'shift'],
         action: function () {
           $.ajax({
-            url: `../model/manage_prof.php?opcao=delete&valor=${idProf}`,
+            url: `./model/manage_prof.php?opcao=delete&valor=${idProf}`,
             dataType: "json",
             type: "POST",
             data: $(this).attr("value"),

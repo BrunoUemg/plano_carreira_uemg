@@ -75,7 +75,7 @@ $(document).ready(function () {
     var idCurso = $("input[name='idCurso']").val();
     $.ajax({
       method: "POST",
-      url: `../model/manage_curso.php?opcao=edit&valor=${idCurso}`,
+      url: `./model/manage_curso.php?opcao=edit&valor=${idCurso}`,
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -95,7 +95,7 @@ $(document).ready(function () {
     event.preventDefault();
     $.ajax({
       method: "POST",
-      url: `../model/manage_curso.php?opcao=add`,
+      url: `./model/manage_curso.php?opcao=add`,
       data: new FormData(this),
       contentType: false,
       processData: false,
@@ -129,7 +129,7 @@ $(document).on('click', '.btn-delet', function () {
         keys: ['enter', 'shift'],
         action: function () {
           $.ajax({
-            url: `../model/manage_curso.php?opcao=delete&valor=${idCurso}`,
+            url: `./model/manage_curso.php?opcao=delete&valor=${idCurso}`,
             dataType: "json",
             type: "POST",
             data: $(this).attr("value"),

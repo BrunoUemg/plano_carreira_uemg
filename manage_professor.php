@@ -85,7 +85,7 @@ include_once "header.php";
             </div>
 
 
-            <div class="mb-3">
+            <div class="mb-3 d-none">
               <label for="senha" class="form-label">Senha</label>
               <input type="password" required class="form-control" id="profSenhaEdit" name="profSenhaEdit">
             </div>

@@ -23,16 +23,24 @@ function addCurso()
 {
     $pdo = Conectar();
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    $query_dup = "SELECT * FROM `curso` WHERE `cursoNome` = :cursoNome";
+    $select_dup = $pdo->prepare($query_dup);
+    $select_dup->bindParam(':cursoNome', $dados['nomeCurso']);
 
-    $query_cursos = "INSERT INTO `curso`(`cursoNome`) VALUES (:cursoNome)";
-    $update_curso = $pdo->prepare($query_cursos);
-    $update_curso->bindParam(':cursoNome', $dados['nomeCurso']);
-    if ($update_curso->execute()) {
-        $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Curso cadastrado com sucesso!</div>'];
-        $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Curso cadastrado com sucesso!</div>';
+    if ($select_dup->execute() && $select_dup->rowCount() > 0) {
+        $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Curso já cadastrado!</div>'];
     } else {
-        $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Não foi possivel cadastradar esse Curso!</div>'];
+        $query_cursos = "INSERT INTO `curso`(`cursoNome`) VALUES (:cursoNome)";
+        $update_curso = $pdo->prepare($query_cursos);
+        $update_curso->bindParam(':cursoNome', $dados['nomeCurso']);
+        if ($update_curso->execute()) {
+            $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Curso cadastrado com sucesso!</div>'];
+            $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Curso cadastrado com sucesso!</div>';
+        } else {
+            $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Não foi possivel cadastradar esse Curso!</div>'];
+        }
     }
+
     sleep(1);
     header('Content-Type: application/json');
     echo json_encode($retorna);
@@ -43,17 +51,25 @@ function editCur($id)
 {
     $pdo = Conectar();
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    $query_dup = "SELECT * FROM `curso` WHERE `cursoNome` = :cursoNome";
+    $select_dup = $pdo->prepare($query_dup);
+    $select_dup->bindParam(':cursoNome', $dados['nomeCurso']);
 
-    $query_cursos = "UPDATE `curso` SET `cursoNome`=:cursoNome WHERE idCurso = :idCurso";
-    $update_curso = $pdo->prepare($query_cursos);
-    $update_curso->bindParam(':cursoNome', $dados['nomeCurso']);
-    $update_curso->bindParam(':idCurso', $id);
-    if ($update_curso->execute()) {
-        $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Curso alterado com sucesso!</div>'];
-        $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Curso alterado com sucesso!</div>';
+    if ($select_dup->execute() && $select_dup->rowCount() > 0) {
+        $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Curso já cadastrado!</div>'];
     } else {
-        $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Não foi possivel alterar esse Curso!</div>'];
+        $query_cursos = "UPDATE `curso` SET `cursoNome`=:cursoNome WHERE idCurso = :idCurso";
+        $update_curso = $pdo->prepare($query_cursos);
+        $update_curso->bindParam(':cursoNome', $dados['nomeCurso']);
+        $update_curso->bindParam(':idCurso', $id);
+        if ($update_curso->execute()) {
+            $retorna = ['sit' => true, 'msg' => '<div class="alert alert-success" role="alert">Curso alterado com sucesso!</div>'];
+            $_SESSION['msg'] = '<div class="alert alert-success" role="alert">Curso alterado com sucesso!</div>';
+        } else {
+            $retorna = ['sit' => false, 'msg' => '<div class="alert alert-danger" role="alert">Erro: Não foi possivel alterar esse Curso!</div>'];
+        }
     }
+
     sleep(1);
     header('Content-Type: application/json');
     echo json_encode($retorna);
